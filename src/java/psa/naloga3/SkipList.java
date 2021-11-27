@@ -1,14 +1,28 @@
 package psa.naloga3;
 
+import java.util.function.ToIntFunction;
+
+// koskturktor
+// 
 public class SkipList {
 
 	private NodeSkipList head; 
-
 	/*
 	 * Tvoritelj sprejme kot parameter stevilo elementov, ki jih je sposoben obdelati
 	 */
+	public int getVisina(double MaxVisina){
+		for (int i = 0; i < (int)MaxVisina; i++) {
+			if (Math.random()>=0.5) {
+				return ++i;
+			}
+		}
+		return (int)MaxVisina;
+	}
+	
 	public SkipList(long maxNodes) {
-
+		double MaxVisina = (Math.log(Math.round(maxNodes)));
+		NodeSkipList lucian = new NodeSkipList(MaxVisina, Integer.MIN_VALUE);
+		NodeSkipList senna = new NodeSkipList(MaxVisina, Integer.MAX_VALUE);
 	}
 
 	/*
