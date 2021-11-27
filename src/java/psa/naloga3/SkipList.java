@@ -6,26 +6,30 @@ import java.util.function.ToIntFunction;
 // 
 public class SkipList {
 
-	public NodeSkipList mylist[]; 
+	public NodeSkipList mylist;
 	public double maxVisina;
 	public int maxNodes;
+
 	/*
-	 * Tvoritelj sprejme kot parameter stevilo elementov, ki jih je sposoben obdelati
+	 * Tvoritelj sprejme kot parameter stevilo elementov, ki jih je sposoben
+	 * obdelati
 	 */
-	public int getVisina(double maxVisina){
-		for (int i = 0; i < (int)maxVisina; i++) {
-			if (Math.random()>=0.5) {
+	public int getVisina(double maxVisina) {
+		for (int i = 0; i < (int) maxVisina; i++) {
+			if (Math.random() >= 0.5) {
 				return ++i;
 			}
 		}
-		return (int)maxVisina;
+		return (int) maxVisina;
 	}
+
+
 	public SkipList(long maxNodes) {
-		NodeSkipList mylist[] = new NodeSkipList[(int)maxNodes+2];
-		this.maxVisina = ((Math.log(Math.round(maxNodes))/Math.log(2)));
-		mylist[0] = new NodeSkipList((int)maxVisina, Integer.MIN_VALUE);
-		mylist[mylist.length-1] = new NodeSkipList((int)maxVisina, Integer.MAX_VALUE);
-		this.maxNodes = (int)maxNodes;
+		this.maxVisina = ((Math.log(Math.round(maxNodes)) / Math.log(2)));
+		this.maxNodes = (int) maxNodes;
+		NodeSkipList start[] = new NodeSkipList[(int)maxVisina];
+		start[start.length-1] = new NodeSkipList(Integer.MAX_VALUE, new NodeSkipList[(int)maxVisina]);
+		this.mylist = new NodeSkipList(Integer.MIN_VALUE,start);
 	}
 
 	/*
@@ -34,32 +38,10 @@ public class SkipList {
 	 * element uspesno vstavljen in false sicer.
 	 */
 	public boolean insert(int searchKey) {
-		for (int i = 0; i < mylist.length-1; i++) {
-			if (mylist[i]== null) {
-				mylist[i] = new NodeSkipList(getVisina(maxVisina), searchKey);
-				return true;
-			} else if (searchKey<mylist[i].key) {
-				NodeSkipList tmp = mylist[i];
-				mylist[i]= new NodeSkipList(getVisina(maxVisina), searchKey);
-				return insert(tmp);
-			} else {
-				return false;
-			}
-		}
-	}
-	
-	public boolean insert(NodeSkipList searchList){
-		for (int i = 0; i < mylist.length; i++) {
-			if ( mylist[i] == null ) {
-				searchList = mylist[i];
-				return true;
-			} else if (searchList.key<mylist[i].key) {
-				NodeSkipList tmp = mylist[i];
-				mylist[i] = searchList;
-				return insert(tmp);
-			} else {
-				return false;
-			}
+		if () {
+			
+		} else {
+			
 		}
 	}
 

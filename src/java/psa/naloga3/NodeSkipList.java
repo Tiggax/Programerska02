@@ -7,8 +7,8 @@ public class NodeSkipList {
     public int key;
     public NodeSkipList next[];
 
-    public NodeSkipList(long Visina, int key){
+    public NodeSkipList(int key, NodeSkipList arraylist[]){
         this.key = key;
-        NodeSkipList next[] = new NodeSkipList[(int)Visina-1];
+        this.next = arraylist;
     }
 }
