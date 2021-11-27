@@ -21,10 +21,10 @@ public class SkipList {
 		return (int)maxVisina;
 	}
 	public SkipList(long maxNodes) {
-		NodeSkipList mylist[] = new NodeSkipList[(int)maxNodes+1];
+		NodeSkipList mylist[] = new NodeSkipList[(int)maxNodes+2];
 		this.maxVisina = ((Math.log(Math.round(maxNodes))/Math.log(2)));
 		mylist[0] = new NodeSkipList((int)maxVisina, Integer.MIN_VALUE);
-		mylist[(int)maxNodes +1] = new NodeSkipList((int)maxVisina, Integer.MAX_VALUE);
+		mylist[mylist.length-1] = new NodeSkipList((int)maxVisina, Integer.MAX_VALUE);
 		this.maxNodes = (int)maxNodes;
 	}
 
@@ -34,15 +34,31 @@ public class SkipList {
 	 * element uspesno vstavljen in false sicer.
 	 */
 	public boolean insert(int searchKey) {
-		for (int i = 0; i < maxNodes+1; i++) {
+		for (int i = 0; i < mylist.length-1; i++) {
 			if (mylist[i]== null) {
 				mylist[i] = new NodeSkipList(getVisina(maxVisina), searchKey);
-				break;
+				return true;
 			} else if (searchKey<mylist[i].key) {
-				insert(mylist[i]);
-				break;
-			}else{
-				
+				NodeSkipList tmp = mylist[i];
+				mylist[i]= new NodeSkipList(getVisina(maxVisina), searchKey);
+				return insert(tmp);
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	public boolean insert(NodeSkipList searchList){
+		for (int i = 0; i < mylist.length; i++) {
+			if ( mylist[i] == null ) {
+				searchList = mylist[i];
+				return true;
+			} else if (searchList.key<mylist[i].key) {
+				NodeSkipList tmp = mylist[i];
+				mylist[i] = searchList;
+				return insert(tmp);
+			} else {
+				return false;
 			}
 		}
 	}
