@@ -6,23 +6,26 @@ import java.util.function.ToIntFunction;
 // 
 public class SkipList {
 
-	private NodeSkipList head; 
+	public NodeSkipList mylist[]; 
+	public double maxVisina;
+	public int maxNodes;
 	/*
 	 * Tvoritelj sprejme kot parameter stevilo elementov, ki jih je sposoben obdelati
 	 */
-	public int getVisina(double MaxVisina){
-		for (int i = 0; i < (int)MaxVisina; i++) {
+	public int getVisina(double maxVisina){
+		for (int i = 0; i < (int)maxVisina; i++) {
 			if (Math.random()>=0.5) {
 				return ++i;
 			}
 		}
-		return (int)MaxVisina;
+		return (int)maxVisina;
 	}
-	
 	public SkipList(long maxNodes) {
-		double MaxVisina = (Math.log(Math.round(maxNodes)));
-		NodeSkipList lucian = new NodeSkipList(MaxVisina, Integer.MIN_VALUE);
-		NodeSkipList senna = new NodeSkipList(MaxVisina, Integer.MAX_VALUE);
+		NodeSkipList mylist[] = new NodeSkipList[(int)maxNodes+1];
+		this.maxVisina = ((Math.log(Math.round(maxNodes))/Math.log(2)));
+		mylist[0] = new NodeSkipList((int)maxVisina, Integer.MIN_VALUE);
+		mylist[(int)maxNodes +1] = new NodeSkipList((int)maxVisina, Integer.MAX_VALUE);
+		this.maxNodes = (int)maxNodes;
 	}
 
 	/*
@@ -31,7 +34,17 @@ public class SkipList {
 	 * element uspesno vstavljen in false sicer.
 	 */
 	public boolean insert(int searchKey) {
-		throw new UnsupportedOperationException("To funkcijo morate implementirati");
+		for (int i = 0; i < maxNodes+1; i++) {
+			if (mylist[i]== null) {
+				mylist[i] = new NodeSkipList(getVisina(maxVisina), searchKey);
+				break;
+			} else if (searchKey<mylist[i].key) {
+				insert(mylist[i]);
+				break;
+			}else{
+				
+			}
+		}
 	}
 
 	/*
