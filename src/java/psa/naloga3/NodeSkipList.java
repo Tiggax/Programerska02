@@ -6,9 +6,9 @@ package psa.naloga3;
 public class NodeSkipList {
     public int key;
     public NodeSkipList next[];
-    public int level;
 
     public NodeSkipList(long Visina, int key){
-        
+        this.key = key;
+        NodeSkipList next[] = new NodeSkipList[(int)Visina-1];
     }
 }
