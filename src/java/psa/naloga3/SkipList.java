@@ -46,15 +46,15 @@ public class SkipList {
 	}
 
 	public boolean insert(int searchKey) {
-		NodeSkipList myKey = new NodeSkipList(searchKey, new NodeSkipList[getVisina(maxVisina)]);
+		if (search(searchKey)) {
+			return false;
+		}
 		if (muchNodes > maxNodes) {
 			return false;
 		} else {
 			muchNodes++;
 		}
-		if (search(searchKey)) {
-			return false;
-		}
+		NodeSkipList myKey = new NodeSkipList(searchKey, new NodeSkipList[getVisina(maxVisina)]);
 		for (int i = 0; i < myKey.next.length; i++) {
 			myKey.next[i] = GetMeMeBloodyRecursiveList(mylist, i, myKey.key).next[i];
 			GetMeMeBloodyRecursiveList(mylist, i, myKey.key).next[i] = myKey;
@@ -101,6 +101,8 @@ public class SkipList {
 	 * false sicer
 	 */
 	public boolean delete(int key) {
-
+		if (search(key)) {
+			
+		}
 	}
 }
