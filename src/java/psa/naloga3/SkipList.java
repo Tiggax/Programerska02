@@ -38,10 +38,7 @@ public class SkipList {
 	 * element uspesno vstavljen in false sicer.
 	 */
 	public NodeSkipList GetMeMeBloodyRecursiveList(NodeSkipList node, int level, int key) {
-		if (node.next[level] == null) {
-			return node;
-		}
-		if (node.key > key) {
+		if (node.next[level].key < key) {
 			return GetMeMeBloodyRecursiveList(node.next[level], level, key);
 		} else {
 			return node;
@@ -58,12 +55,13 @@ public class SkipList {
 			muchNodes++;
 		}
 		NodeSkipList myKey = new NodeSkipList(searchKey, new NodeSkipList[getVisina(maxVisina)]);
-		for (int i = 0; i < myKey.next.length; i++) {
-			myKey.next[i] = GetMeMeBloodyRecursiveList(mylist, i, myKey.key).next[i];
-			GetMeMeBloodyRecursiveList(mylist, i, myKey.key).next[i] = myKey;
+		for (int i = maxVisina - 1; i >= 0; i--) {
+			if (myKey.next.length >= i+1) {
+				myKey.next[i] = GetMeMeBloodyRecursiveList(mylist, i, searchKey).next[i];
+				GetMeMeBloodyRecursiveList(mylist, i, searchKey).next[i] = myKey;
+			}
 		}
 		return true;
-
 	}
 
 	/*
@@ -71,21 +69,6 @@ public class SkipList {
 	 * vrne true, ce je bil element uspesno najden v podatkovni strukturi, in
 	 * false sicer
 	 */
-	// public boolean search(int searchKey) {
-	// 	//TODO search zgleda neki ne dela, ker zadnji heca.
-	// 	NodeSkipList a = mylist;
-	// 	NodeSkipList b = mylist;
-	// 	while (a != null) {
-	// 		b = a.next[0];
-	// 		a = b;
-	// 		if (a.key == searchKey) {
-	// 			return true;
-	// 		} else {
-	// 			continue;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
 	public boolean search(int searchKey) {
 		//TODO search zgleda neki ne dela, ker zadnji heca.
 		NodeSkipList a = mylist;
