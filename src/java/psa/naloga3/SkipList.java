@@ -6,7 +6,7 @@ public class SkipList {
 	public NodeSkipList mylist;
 	public int maxVisina;
 	public int maxNodes;
-	public int muchNodes = 1;
+	public int muchNodes;
 
 	/*
 	 * Tvoritelj sprejme kot parameter stevilo elementov, ki jih je sposoben
@@ -71,6 +71,7 @@ public class SkipList {
 	 * false sicer
 	 */
 	public boolean search(int searchKey) {
+		//TODO search zgleda neki ne dela, ker zadnji heca.
 		NodeSkipList myKey = new NodeSkipList(searchKey, new NodeSkipList[getVisina(maxVisina)]);
 		NodeSkipList a = mylist;
 		NodeSkipList b = mylist;
@@ -88,6 +89,7 @@ public class SkipList {
 					if (i == 0) {
 						return false;
 					}
+					break;
 				} else {
 					// je večji pogledam naslednjega
 					continue;
