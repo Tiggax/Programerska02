@@ -101,7 +101,13 @@ public class SkipList {
 	 */
 	public boolean delete(int key) {
 		if (search(key)) {
-			return true;
+			int lngth = GetMeMeBloodyRecursiveList(mylist, 0, key-1).next.length;
+			for (int i = maxVisina - 1; i >= 0; i--) {
+				if (lngth >= i+1) {
+				GetMeMeBloodyRecursiveList(mylist, i, key-1).next[i] = GetMeMeBloodyRecursiveList(mylist, i, key).next[i].next[i];
+			}
+		}
+		return true;
 		} else {
 			return false;
 		}
