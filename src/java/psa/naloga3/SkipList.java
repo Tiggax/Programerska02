@@ -1,10 +1,10 @@
 package psa.naloga3;
 
+
 public class SkipList {
 
 	public NodeSkipList mylist;
-	public double maxVisina;
-	public int maxVisinaI;
+	public int maxVisina;
 	public int maxNodes;
 	public int muchNodes = 1;
 
@@ -12,8 +12,8 @@ public class SkipList {
 	 * Tvoritelj sprejme kot parameter stevilo elementov, ki jih je sposoben
 	 * obdelati
 	 */
-	public int getVisina(double maxVisina) {
-		for (int i = 0; i < (int) maxVisina; i++) {
+	public int getVisina(int maxVisina) {
+		for (int i = 0; i < maxVisina; i++) {
 			if (Math.random() >= 0.5) {
 				return ++i;
 			}
@@ -22,11 +22,10 @@ public class SkipList {
 	}
 
 	public SkipList(long maxNodes) {
-		this.maxVisina = ((Math.log(Math.round(maxNodes)) / Math.log(2)));
-		this.maxVisinaI = (int) maxVisina;
+		this.maxVisina = (int)((Math.log(Math.round(maxNodes)) / Math.log(2)));
 		this.maxNodes = (int) maxNodes;
 		NodeSkipList start[] = new NodeSkipList[(int) maxVisina];
-		for (int i = 0; i < maxVisinaI; i++) {
+		for (int i = 0; i < maxVisina; i++) {
 			start[i] = new NodeSkipList(Integer.MAX_VALUE, new NodeSkipList[(int) maxVisina]);
 		}
 		this.mylist = new NodeSkipList(Integer.MIN_VALUE, start);
@@ -38,10 +37,13 @@ public class SkipList {
 	 * element uspesno vstavljen in false sicer.
 	 */
 	public NodeSkipList GetMeMeBloodyRecursiveList(NodeSkipList node, int level, int key) {
-		if (node.key < key) {
+		if (node.next[level] == null) {
 			return node;
-		} else {
+		}
+		if (node.key > key) {
 			return GetMeMeBloodyRecursiveList(node.next[level], level, key);
+		} else {
+			return node;
 		}
 	}
 
@@ -72,7 +74,7 @@ public class SkipList {
 		NodeSkipList myKey = new NodeSkipList(searchKey, new NodeSkipList[getVisina(maxVisina)]);
 		NodeSkipList a = mylist;
 		NodeSkipList b = mylist;
-		for (int i = maxVisinaI - 1; i >= 0; i--) {
+		for (int i = maxVisina - 1; i >= 0; i--) {
 			while (a != null) {
 				NodeSkipList prevA = a;
 				b = a.next[i];
@@ -102,7 +104,9 @@ public class SkipList {
 	 */
 	public boolean delete(int key) {
 		if (search(key)) {
-			
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

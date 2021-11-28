@@ -7,7 +7,7 @@ public class NodeSkipList {
     public int key;
     public NodeSkipList next[];
 
-    public NodeSkipList(int key, NodeSkipList arraylist[]){
+    public NodeSkipList(int key, NodeSkipList[] arraylist){
         this.key = key;
         this.next = arraylist;
     }
