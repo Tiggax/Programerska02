@@ -1,6 +1,5 @@
 package psa.naloga3;
 
-
 public class SkipList {
 
 	public NodeSkipList mylist;
@@ -38,11 +37,11 @@ public class SkipList {
 	 * obstaja v podatkovni strukturi, vrne false. Metoda vrne true, ce je bil
 	 * element uspesno vstavljen in false sicer.
 	 */
-	public NodeSkipList getMeMyList(NodeSkipList node, int level, int key) {
+	public NodeSkipList GetMeMeBloodyRecursiveList(NodeSkipList node, int level, int key) {
 		if (node.key < key) {
 			return node;
 		} else {
-			return getMeMyList(node.next[level], level, key);
+			return GetMeMeBloodyRecursiveList(node.next[level], level, key);
 		}
 	}
 
@@ -57,8 +56,8 @@ public class SkipList {
 			return false;
 		}
 		for (int i = 0; i < myKey.next.length; i++) {
-			myKey.next[i] = getMeMyList(mylist, i, myKey.key).next[i];
-			getMeMyList(mylist, i, myKey.key).next[i] = myKey;
+			myKey.next[i] = GetMeMeBloodyRecursiveList(mylist, i, myKey.key).next[i];
+			GetMeMeBloodyRecursiveList(mylist, i, myKey.key).next[i] = myKey;
 		}
 		return true;
 
@@ -85,20 +84,15 @@ public class SkipList {
 					// je manjši gremo v nivo nižje(pri prejšnem)
 					a = prevA;
 					if (i == 0) {
-						for (int j = 0; j < myKey.next.length; j++) {
-							NodeSkipList tmp = prevA.next[j];
-
-						}
-						break;
-					} else {
-						// je večji pogledam naslednjega
-						continue;
+						return false;
 					}
-
+				} else {
+					// je večji pogledam naslednjega
+					continue;
 				}
 			}
-			return false;
 		}
+		return false;
 	}
 
 	/*
