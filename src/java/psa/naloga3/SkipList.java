@@ -1,5 +1,6 @@
 package psa.naloga3;
 
+import org.w3c.dom.Node;
 
 public class SkipList {
 
@@ -70,9 +71,23 @@ public class SkipList {
 	 * vrne true, ce je bil element uspesno najden v podatkovni strukturi, in
 	 * false sicer
 	 */
+	// public boolean search(int searchKey) {
+	// 	//TODO search zgleda neki ne dela, ker zadnji heca.
+	// 	NodeSkipList a = mylist;
+	// 	NodeSkipList b = mylist;
+	// 	while (a != null) {
+	// 		b = a.next[0];
+	// 		a = b;
+	// 		if (a.key == searchKey) {
+	// 			return true;
+	// 		} else {
+	// 			continue;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
 	public boolean search(int searchKey) {
 		//TODO search zgleda neki ne dela, ker zadnji heca.
-		NodeSkipList myKey = new NodeSkipList(searchKey, new NodeSkipList[getVisina(maxVisina)]);
 		NodeSkipList a = mylist;
 		NodeSkipList b = mylist;
 		for (int i = maxVisina - 1; i >= 0; i--) {
@@ -80,15 +95,12 @@ public class SkipList {
 				NodeSkipList prevA = a;
 				b = a.next[i];
 				a = b;
-				if (a.key == myKey.key) {
+				if (a.key == searchKey) {
 					return true;
 				}
-				if (a.key > myKey.key) {
+				if (a.key > searchKey) {
 					// je manjši gremo v nivo nižje(pri prejšnem)
 					a = prevA;
-					if (i == 0) {
-						return false;
-					}
 					break;
 				} else {
 					// je večji pogledam naslednjega
